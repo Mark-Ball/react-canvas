@@ -4,7 +4,7 @@ import PencilWidthSelector from './PencilWidthSelector';
 
 class Canvas extends Component {
     state = { 
-        hex: '#ffffff',
+        hex: '#000000',
         coords: null,
         height: 400,
         width: 400,
@@ -69,6 +69,10 @@ class Canvas extends Component {
         }
     }
 
+    clearCanvas = () => {
+        this.context.clearRect(0, 0, this.context.canvas.width, this.context.canvas.height);
+    }
+
     render() {
         const { hex, height, width, pencilWidth } = this.state;
 
@@ -95,6 +99,7 @@ class Canvas extends Component {
                     onMouseDown={this.onCanvasMouseDown}
                     onMouseUp={this.onCanvasMouseUp}
                 />
+                <button onClick={this.clearCanvas} type='button'>Clear</button>
             </div>
         )
     }
