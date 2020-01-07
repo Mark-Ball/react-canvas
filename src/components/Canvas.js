@@ -6,7 +6,8 @@ class Canvas extends Component {
         hex: '#ffffff',
         coords: null,
         height: 400,
-        width: 400
+        width: 400,
+        pencilWidth: 3
     };
 
     constructor(props) {
@@ -15,11 +16,15 @@ class Canvas extends Component {
         this.context = null;
     }
 
+    onPencilWidthChange = (event) => {
+        this.setState({ pencilWidth: event.target.value });
+    }
+
     setContext() {
         this.context = this.canvasRef.current.getContext('2d');
         this.context.strokeStyle = this.state.hex;
         this.context.lineJoin = 'round';
-        this.context.lineWidth = 3;
+        this.context.lineWidth = this.state.pencilWidth;
     }
 
     componentDidUpdate() {
@@ -49,10 +54,6 @@ class Canvas extends Component {
         const y = event.nativeEvent.offsetY;
         let { coords, height, width } = this.state;
 
-        // if (coords === null) {
-        //     coords = [x, y];
-        // }
-
         if (x > 0 && x < width && y > 0 && y < height) {
             if (coords) {
                 this.context.beginPath();
@@ -63,15 +64,25 @@ class Canvas extends Component {
                 this.setState({ coords: [x, y] });
             }
         } else {
-            // this.setState({ coords: null });
+            this.setState({ coords: null });
         }
     }
 
     render() {
-        const { hex, height, width } = this.state;
+        const { hex, height, width, pencilWidth } = this.state;
 
         return (
             <div>
+                <div>
+                    <label>Marker width</label>
+                    <select onChange={this.onPencilWidthChange} value={pencilWidth}>
+                        <option value='1'>1</option>
+                        <option value='2'>2</option>
+                        <option value='3'>3</option>
+                        <option value='4'>4</option>
+                        <option value='5'>5</option>
+                    </select>
+                </div>
                 <div>
                     <ColourSelector 
                         onColourSelectorChange={this.onColourSelectorChange}
