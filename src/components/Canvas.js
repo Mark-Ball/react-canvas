@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ColourSelector from './ColourSelector';
+import PencilWidthSelector from './PencilWidthSelector';
 
 class Canvas extends Component {
     state = { 
@@ -74,14 +75,10 @@ class Canvas extends Component {
         return (
             <div>
                 <div>
-                    <label>Marker width</label>
-                    <select onChange={this.onPencilWidthChange} value={pencilWidth}>
-                        <option value='1'>1</option>
-                        <option value='2'>2</option>
-                        <option value='3'>3</option>
-                        <option value='4'>4</option>
-                        <option value='5'>5</option>
-                    </select>
+                    <PencilWidthSelector 
+                        onPencilWidthChange={this.onPencilWidthChange}
+                        pencilWidth={pencilWidth}
+                    />
                 </div>
                 <div>
                     <ColourSelector 
